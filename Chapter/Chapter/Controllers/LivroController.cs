@@ -1,6 +1,7 @@
 ﻿using Chapter.Interfaces;
 using Chapter.Models;
 using Chapter.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Data.SqlTypes;
 using System.Security.Cryptography.X509Certificates;
@@ -10,6 +11,8 @@ namespace Chapter.Controllers
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
+
+    [Authorize]
     public class LivroController : ControllerBase
     {
         private readonly ILivroRepository _iLivroRepository;
@@ -49,6 +52,7 @@ namespace Chapter.Controllers
                 throw new Exception(e.Message);
             }
         }
+        [Authorize(Roles = "1")]
         [HttpPost]
 
         public IActionResult Casdastrar(Livro livro) {
